@@ -1,9 +1,11 @@
 use iced::executor;
 use iced::widget::{
     button, column, container, horizontal_rule, progress_bar, radio,
-    scrollable, text, vertical_space, Row,
+    scrollable, text, vertical_space, Row, image
 };
 use iced::{Application, Command, Element, Length, Settings, Theme};
+
+const SCREENSHOT: &[u8] = include_bytes!("../screenshot.png");
 
 pub fn main() -> iced::Result {
     ScrollableDemo::run(Settings::default())
@@ -133,6 +135,7 @@ impl Application for ScrollableDemo {
 
                     contents = contents
                         .push(vertical_space(Length::Units(100)))
+                        .push(image::viewer(image::Handle::from_memory(SCREENSHOT.to_vec())))
                         .push(
                             "Some content that should wrap within the \
                             scrollable. Let's output a lot of short words, so \
