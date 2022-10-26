@@ -3,6 +3,7 @@ use iced::widget::scrollable::Properties;
 use iced::widget::{
     button, column, container, horizontal_space, progress_bar, radio, row,
     scrollable, slider, text, vertical_space,
+    image,
 };
 use iced::{
     Alignment, Application, Color, Command, Element, Length, Settings, Theme,
@@ -11,6 +12,8 @@ use iced::{
 use once_cell::sync::Lazy;
 
 static SCROLLABLE_ID: Lazy<scrollable::Id> = Lazy::new(scrollable::Id::unique);
+
+const SCREENSHOT: &[u8] = include_bytes!("../screenshot.png");
 
 pub fn main() -> iced::Result {
     ScrollableDemo::run(Settings::default())
@@ -216,6 +219,7 @@ impl Application for ScrollableDemo {
                     column![
                         scroll_to_end_button(),
                         text("Beginning!"),
+                        image::viewer(image::Handle::from_memory(SCREENSHOT.to_vec())),
                         vertical_space().height(1200),
                         text("Middle!"),
                         vertical_space().height(1200),
