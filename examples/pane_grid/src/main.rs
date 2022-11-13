@@ -99,6 +99,7 @@ impl Application for Example {
             }
             Message::Clicked(pane) => {
                 self.focus = Some(pane);
+                return scrollable::snap_to(scrollable::Id::new("whatevs"), 0.0);
             }
             Message::Resized(pane_grid::ResizeEvent { split, ratio }) => {
                 self.panes.resize(&split, ratio);
@@ -197,9 +198,9 @@ impl Application for Example {
                     style::title_bar_active
                 });
 
-            pane_grid::Content::new(responsive(move |size| {
-                view_content(id, total_panes, pane.is_pinned, size)
-            }))
+            pane_grid::Content::new(//responsive(move |size| {
+                view_content(id, total_panes, pane.is_pinned, /*size*/ Size{ width: 480.0, height: 340.0 })
+            /*})*/)
             .title_bar(title_bar)
             .style(if is_focused {
                 style::pane_focused
@@ -313,7 +314,7 @@ fn view_content<'a>(
     .spacing(10)
     .align_items(Alignment::Center);
 
-    container(scrollable(content))
+    container(scrollable(content).id(scrollable::Id::new("whatevs")))
         .width(Length::Fill)
         .height(Length::Fill)
         .padding(5)
