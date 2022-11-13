@@ -92,7 +92,7 @@ impl Application for Todos {
                     _ => {}
                 }
 
-                text_input::focus(INPUT_ID.clone())
+                text_input::focus(INPUT_ID.clone()).map(std::convert::identity)
             }
             Todos::Loaded(state) => {
                 let mut saved = false;
@@ -131,7 +131,7 @@ impl Application for Todos {
                             task.update(task_message);
 
                             if should_focus {
-                                text_input::focus(Task::text_input_id(i))
+                                text_input::focus(Task::text_input_id(i)).map(std::convert::identity)
                             } else {
                                 Command::none()
                             }
@@ -147,9 +147,9 @@ impl Application for Todos {
                     }
                     Message::TabPressed { shift } => {
                         if shift {
-                            widget::focus_previous()
+                            widget::focus_previous().map(std::convert::identity)
                         } else {
-                            widget::focus_next()
+                            widget::focus_next().map(std::convert::identity)
                         }
                     }
                     _ => Command::none(),
