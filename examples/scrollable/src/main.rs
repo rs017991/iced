@@ -87,6 +87,7 @@ impl Application for ScrollableDemo {
     }
 
     fn view(&self) -> Element<Message> {
+    iced_lazy::responsive(|_size| {
         let ScrollableDemo { variants, .. } = self;
 
         let choose_theme = [ThemeType::Light, ThemeType::Dark].iter().fold(
@@ -202,6 +203,7 @@ impl Application for ScrollableDemo {
             .center_x()
             .center_y()
             .into()
+    }).into()
     }
 
     fn theme(&self) -> Theme {
