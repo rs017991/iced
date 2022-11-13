@@ -62,7 +62,7 @@ impl Application for ScrollableDemo {
                 if let Some(variant) = self.variants.get_mut(i) {
                     variant.latest_offset = 0.0;
 
-                    scrollable::snap_to(Variant::id(i), 0.0)
+                    scrollable::snap_to(Variant::id(i), 0.0).map(std::convert::identity)
                 } else {
                     Command::none()
                 }
